@@ -53,6 +53,11 @@ router.post("/create-checkout-session", async (req, res) => {
       quantity: item.quantity,
     };
   });
+
+  /* balik mo dito
+   *success_url: "https://eatseasy-payment-backend.vercel.app/stripe/checkout-success",
+   *cancel_url:  "https://eatseasy-payment-backend.vercel.app/stripe/cancel",
+   */
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
    
@@ -63,8 +68,8 @@ router.post("/create-checkout-session", async (req, res) => {
     line_items,
     mode: "payment",
     customer: customer.id,
-    success_url: "https://eatseasy-payment-backend.vercel.app/stripe/checkout-success",
-    cancel_url:  "https://eatseasy-payment-backend.vercel.app/stripe/cancel",
+    success_url: "localhost:5040/stripe/checkout-success",
+    cancel_url:  "localhost:5040/stripe/cancel",
   });
 
   console.log(session.url);
@@ -110,8 +115,8 @@ router.post("/topup-wallet", async (req, res) => {
     line_items,
     mode: "payment",
     customer: customer.id,
-    success_url: "https://eatseasy-payment-backend.vercel.app/stripe/checkout-success",
-    cancel_url:  "https://eatseasy-payment-backend.vercel.app/stripe/cancel",
+    success_url: "http://localhost:5040/stripe/checkout-success",
+    cancel_url: "http://localhost:5040/stripe/cancel",
   });
 
   console.log("Top-up session URL:", session.url);
